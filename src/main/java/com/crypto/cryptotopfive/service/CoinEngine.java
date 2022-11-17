@@ -6,7 +6,6 @@ import com.crypto.cryptotopfive.mapper.CoinMapper;
 import com.crypto.cryptotopfive.repository.CoinRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class CoinEngine {
 
-    Logger logger = LoggerFactory.getLogger(CoinEngine.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(CoinEngine.class);
 
     private final CoinRepository coinRepository;
     private final CoinMapper coinMapper;
@@ -36,7 +35,7 @@ public class CoinEngine {
         CoinDto[] coinDtos = coinService.findTopFiveCoins();
 
         if (coinDtos == null) {
-            logger.warn("Schedule job failed. No data");
+            LOGGER.warn("Schedule job failed. No data");
             return;
         }
 
